@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+
+  anaconda:
+    build:
+      context: ./build
+      dockerfile: anaconda.Dockerfile
+    command: "/opt/conda/bin/jupyter notebook --allow-root --notebook-dir=/tmp --ip='*' --port=8888 --no-browser"
+    ports:
+     - ${JUPYTER_PORT:-8888}:8888
+    working_dir: /tmp
+    volumes:
+     - ./jupyter_notebook_config.py:/root/.jupyter/jupyter_notebook_config.py
+     - ./tmp:/tmp
